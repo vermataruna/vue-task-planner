@@ -1,0 +1,16 @@
+{
+    "projects" : [
+        {
+            "id": 1,
+            "title": "Create a laravel project",
+            "details": "Lorem ipsum dolor sit amet, orem ipsum dolor sit amet,porem ipsum dolor sit amet.",
+            "complete": false
+        },
+        {
+            "id": 2,
+            "title": "Create a vue project",
+            "details": "Lorem ipsum dolor sit amet, orem ipsum dolor sit amet,porem ipsum dolor sit amet.",
+            "complete": true
+        }
+    ]
+}
