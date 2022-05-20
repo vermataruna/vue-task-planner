@@ -1,9 +1,14 @@
 <template>
   <div class="task">
       <div class="actions">
-          <h3>{{task.title}}</h3>
+          <h3 @click="showDetails = !showDetails">{{task.title}}</h3>
+          <div class="icon">
+              <span class="material-icons">edit</span>
+              <span class="material-icons">delete</span>
+              <span class="material-icons">done</span>
+          </div>
       </div>
-      <div class="details">
+      <div v-if="showDetails" class="details">
           <p>{{task.details}}</p>
       </div>
   </div>
@@ -11,6 +16,11 @@
 
 <script>
 export default {
+    data(){
+        return {
+        showDetails: false
+        }
+    },
     props: [
         'task'
     ]
@@ -30,6 +40,23 @@ export default {
   
   h3 {
       cursor: pointer;
+  }
+
+  .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .material-icons {
+      font-size: 24px;
+      margin-left: 10px;
+      color: rgb(248, 40, 40);
+      cursor: pointer;
+  }
+
+  .material-icons:hover{
+      color: rgb(23, 194, 66);
   }
 
 </style>
