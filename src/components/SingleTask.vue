@@ -1,11 +1,11 @@
 <template>
-  <div class="task">
+  <div class="task" :class="{complete : task.complete}">
       <div class="actions">
           <h3 @click="showDetails = !showDetails">{{task.title}}</h3>
           <div class="icon">
               <span class="material-icons">edit</span>
               <span class="material-icons" @click="deleteTask">delete</span>
-              <span class="material-icons">done</span>
+              <span class="material-icons tick" @click="completeTask">done</span>
           </div>
       </div>
       <div v-if="showDetails" class="details">
@@ -19,7 +19,7 @@ export default {
     data(){
         return {
         showDetails: false,
-        uri: 'http://localhost:3000/tasks' + this.task.id
+        uri: 'http://localhost:3000/tasks/' + this.task.id
         }
     },
     props: [
@@ -30,7 +30,18 @@ export default {
             fetch(this.uri, {method: 'DELETE'})
                 .then(() => this.$emit('delete', this.task.id))
                 .catch(error => console.log(error))
-        }
+        },
+        completeTask() {
+          console.log('ehr')
+            fetch(this.uri, {
+                method: 'PATCH',
+                headers: { 'Content-Type' : 'application/json'},
+                body: JSON.stringify({ complete: !this.task.complete })
+            }).then(() => {
+              this.$emit('complete', this.task.id)
+            }).catch((error)=> console.log(error))
+        },
+
     }
 }
 </script>
@@ -63,8 +74,16 @@ export default {
       cursor: pointer;
   }
 
-  .material-icons:hover{
+  .material-icons:hover {
       color: rgb(23, 194, 66);
   }
 
+  .task.complete {
+    border-left: 4px solid limegreen;
+    text-decoration: line-through;
+  }
+
+  .task.complete .tick {
+    color: limegreen;
+  }
 </style>
